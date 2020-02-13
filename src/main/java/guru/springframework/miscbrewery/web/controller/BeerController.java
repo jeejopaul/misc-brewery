@@ -4,12 +4,18 @@ import org.springframework.web.bind.annotation.RestController;
 import guru.springframework.miscbrewery.services.BeerService;
 import guru.springframework.miscbrewery.web.model.BeerDto;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,8 +52,8 @@ public class BeerController {
 	}
 	
 	@DeleteMapping({"/{beerId}"})
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void handleDelete(@PathVariable UUID beerId) {
 		beerService.deleteBeer(beerId);
 	}
-
 }
